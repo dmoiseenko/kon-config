@@ -1,0 +1,17 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: ingress
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: istio-system
+    - name: issuer
+    - name: external-dns
+  interval: 5m
+  path: "./overlay/development/ingress"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  validation: client

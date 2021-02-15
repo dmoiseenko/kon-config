@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: nami
+  namespace: main
+spec:
+  chart:
+    spec:
+      version: 0.0.551096778+9fd3c923877d83efce7d820f0afdaa4018d57c6f

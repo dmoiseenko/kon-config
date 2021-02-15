@@ -1,0 +1,22 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: flux-monitoring
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: flux-monitoring-preparation
+  interval: 5m
+  path: "./manifests/monitoring/"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-monitoring
+  validation: client
+  healthChecks:
+    - kind: Deployment
+      name: prometheus
+      namespace: flux-system
+    - kind: Deployment
+      name: grafana
+      namespace: flux-system

@@ -1,0 +1,15 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt
+  namespace: cert-manager
+spec:
+  acme:
+    email: denis@dmoiseenko.me
+    server: https://acme-v02.api.letsencrypt.org/directory
+    privateKeySecretRef:
+      name: letsencrypt-staging-private-key
+    solvers:
+    - dns01:
+        cloudDNS:
+          project: prj-d-kon-dns-96ae

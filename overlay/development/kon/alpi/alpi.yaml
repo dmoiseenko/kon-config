@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: alpi
+  namespace: main
+spec:
+  chart:
+    spec:
+      version: 0.0.568539391+1982a42952c176fd5660ccf353c47fe959b9bbd9

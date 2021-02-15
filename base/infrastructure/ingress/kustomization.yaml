@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - gateway.yaml
+  - health_gateway.yaml
+  - health_virtual_service.yaml
+  - ingress.yaml
+  - default_backend_config.yaml
+  - iap_backend_config.yaml
+  - iap_health_gateway.yaml
+  - iap_health_virtual_service.yaml
+  - iap_gateway.yaml
+  - default_frontend_config.yaml

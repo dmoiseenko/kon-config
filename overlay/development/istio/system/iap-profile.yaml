@@ -1,0 +1,56 @@
+apiVersion: install.istio.io/v1alpha1
+kind: IstioOperator
+metadata:
+  namespace: istio-system
+  name: istio-ingressgateway-iap
+spec:
+  profile: empty
+  components:
+    ingressGateways:
+    - name: istio-ingressgateway-iap
+      namespace: istio-system
+      enabled: true
+      k8s:
+        serviceAnnotations:
+          cloud.google.com/neg: '{"ingress": true}'
+          cloud.google.com/backend-config: '{"ports": {
+            "80": "config-iap"
+          }}'
+        overlays:
+        - kind: Service
+          name: istio-ingressgateway-iap
+          patches:
+          - path: spec.type
+            value: ClusterIP
+          - path: metadata.labels.app
+            value: istio-ingressgateway-iap
+          - path: metadata.labels.istio
+            value: ingressgateway-iap
+          - path: spec.selector.app
+            value: istio-ingressgateway-iap
+          - path: spec.selector.istio
+            value: ingressgateway-iap
+        - kind: HorizontalPodAutoscaler
+          name: istio-ingressgateway-iap
+          patches:
+            - path: metadata.labels.app
+              value: istio-ingressgateway-iap
+            - path: metadata.labels.istio
+              value: ingressgateway-iap
+            - path: spec.scaleTargetRef.name
+              value: istio-ingressgateway-iap
+        - kind: Deployment
+          name: istio-ingressgateway-iap
+          patches:
+            - path: metadata.labels.app
+              value: istio-ingressgateway-iap
+            - path: metadata.labels.istio
+              value: ingressgateway-iap
+            - path: spec.selector.matchLabels.app
+              value: istio-ingressgateway-iap
+            - path: spec.selector.matchLabels.istio
+              value: ingressgateway-iap
+            - path: spec.template.metadata.labels.app
+              value: istio-ingressgateway-iap
+            - path: spec.template.metadata.labels.istio
+              value: ingressgateway-iap

@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: vault
+  namespace: vault
+spec:
+  hosts:
+    - vault.system.dev.dmoiseenko.me
+  gateways:
+    - istio-system/iap-ingress-gateway
+  http:
+    - route:
+        - destination:
+            host: vault
+            port:
+              number: 8200

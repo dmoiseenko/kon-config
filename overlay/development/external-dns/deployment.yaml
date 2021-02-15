@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: external-dns
+  namespace: external-dns
+spec:
+  strategy:
+    type: Recreate
+  selector:
+    matchLabels:
+      app: external-dns
+  template:
+    metadata:
+      labels:
+        app: external-dns
+    spec:
+      containers:
+        - args:
+            - --source=ingress
+            - --source=service
+            - --domain-filter=dev.dmoiseenko.me
+            - --provider=google
+            - --google-project=prj-d-kon-dns-96ae
+            - --registry=txt
+            - --txt-owner-id=kon
+          image: k8s.gcr.io/external-dns/external-dns:v0.7.3
+          name: external-dns
+      securityContext:
+        fsGroup: 65534
+        runAsUser: 65534
+      serviceAccountName: external-dns

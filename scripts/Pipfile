@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pytest = "*"
+pyyaml = "*"
+
+[dev-packages]
+pytest-testmon = "*"
+pytest-watch = "*"
+pytest-picked = "*"
+
+[requires]
+python_version = "3.9"
+
+[scripts]
+watch-test = "ptw --runner 'pytest --testmon'"

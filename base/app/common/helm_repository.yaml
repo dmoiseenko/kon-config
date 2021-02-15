@@ -1,0 +1,8 @@
+apiVersion: source.toolkit.fluxcd.io/v1beta1
+kind: HelmRepository
+metadata:
+  name: prj-sh-kon-helm-c2a1
+  namespace: main
+spec:
+  interval: 2m
+  url: https://helm.dmoiseenko.me/

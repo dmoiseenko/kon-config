@@ -1,0 +1,9 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: zoru
+  namespace: main
+spec:
+  chart:
+    spec:
+      version: 0.0.540556108+dfa666641e50718088e4fb05ec8be9d07acddc6c

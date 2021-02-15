@@ -1,0 +1,15 @@
+apiVersion: kustomize.toolkit.fluxcd.io/v1beta1
+kind: Kustomization
+metadata:
+  name: vault
+  namespace: flux-system
+spec:
+  dependsOn:
+    - name: istio-system
+  interval: 5m
+  path: "./overlay/development/vault/"
+  prune: true
+  sourceRef:
+    kind: GitRepository
+    name: flux-system
+  validation: client
