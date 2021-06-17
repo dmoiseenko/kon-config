@@ -1,0 +1,53 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: tp-user                                       
+  namespace: ambassador                          
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: telepresence-role
+rules:
+- apiGroups:
+  - ""
+  resources: ["pods"]
+  verbs: ["get", "list", "create", "watch", "delete"]
+- apiGroups:
+  - ""
+  resources: ["services"]
+  verbs: ["get", "list", "watch", "update"]
+- apiGroups:
+  - ""
+  resources: ["pods/portforward"]
+  verbs: ["create"]
+- apiGroups:
+  - "apps"
+  resources: ["deployments", "replicasets", "statefulsets"]
+  verbs: ["get", "list", "update"]
+- apiGroups:
+  - "getambassador.io"
+  resources: ["hosts", "mappings"]
+  verbs: ["*"]
+- apiGroups:
+  - ""
+  resources: ["endpoints"]
+  verbs: ["get", "list", "watch"]
+- apiGroups:
+  - ""
+  resources: ["namespaces"]
+  verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: telepresence-rolebinding
+subjects:
+- name: tp-user
+  kind: ServiceAccount
+  namespace: ambassador
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  name: telepresence-role
+  kind: ClusterRole
